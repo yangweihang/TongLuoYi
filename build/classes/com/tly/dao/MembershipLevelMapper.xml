@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 会员级别对应 -->
+<mapper namespace="com.tly.dao.IMembershipLevelDao">
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.tly.model.MembershipLevel">
+		insert into membershiplevel(wxid,level) values(#{wxid},#{level})
+	</insert>
+	<!-- 修改级别 -->
+	<update id="update" parameterType="com.tly.model.MembershipLevel">
+		update membershiplevel set level=#{level} where id=#{id}
+	</update>
+	<!-- 按微信id查询 -->
+	<select id="selectByWxid" parameterType="java.lang.String" resultType="com.tly.model.MembershipLevel">
+		select * from membershiplevel where wxid=#{wxid}
+	</select>
+</mapper>

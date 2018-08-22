@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 库存明细表 -->
+<mapper namespace="com.tly.dao.IInventoryDao">
+	<!-- 增加 -->
+	<insert id="insert" parameterType="com.tly.model.Inventory">
+		insert into inventory(name,model,deposit,price,serialnum) values(#{name},#{model},#{deposit},#{price},#{serialnum})
+	</insert>
+	<!-- 按条件查询 -->
+	<select id="selectByInventory" parameterType="java.util.HashMap" resultType="com.tly.model.Inventory">
+		select * from inventory
+		<where>
+			<!-- 按名称查询 -->
+			<if test="name != null and name != ''">
+				and name = #{name}
+			</if>
+			<!-- 查询租用机型 -->
+			<if test="zyjx != null and zyjx != ''">
+				and model like '%Z'
+			</if>
+			<!-- 查询销售机型 -->
+			<if test="xsjx != null and xsjx != ''">
+				and model like '%X'
+			</if>
+		</where>
+	</select>
+	<!-- 按id查询 -->
+	<select id="selectOne" parameterType="java.lang.Integer" resultType="com.tly.model.Inventory">
+		select * from inventory where id = #{id}
+	</select>
+	<!-- 修改  -->
+	<update id="update" parameterType="com.tly.model.Inventory">
+		update inventory set name=#{name},model=#{model},deposit=#{deposit},price=#{price} where id=#{id}
+	</update>
+	<!-- 修改二维码地址 -->
+	<update id="updateewm" parameterType="java.lang.String">
+		update inventory set ewm=#{ewm}
+	</update>
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from inventory where id=#{id}
+	</delete>
+	<!-- 查询一个对象 -->
+	<select id="selectByTJ" parameterType="java.util.HashMap" resultType="com.tly.model.Inventory">
+		select * from inventory
+		<where>
+			<!-- 查询设备编号 -->
+			<if test="mod != null and mod != ''">
+				and serialnum = #{mod}
+			</if>
+		</where>
+	</select>
+	<!-- 设备管理查询 -->
+	<select id="selectByEquipmentanage" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select iv.id as ivd,iv.model as m,iv.serialnum as s,d.inventorystatus as ivs,d.manner as ma,d.devicestatus as dt from inventory iv 
+			left join deviceinout d on iv.serialnum = d.serialnum
+			<where>
+				<!-- 查询库存状态状态 -->
+				<if test="ivs != null and ivs != ''">
+					and d.inventorystatus = #{ivs}
+				</if>
+			</where>
+	</select>
+	<!-- 查询全部 -->
+	<select id="selectAll" resultType="com.tly.model.Inventory">
+		select * from inventory
+	</select>
+	<!-- 查询没有出租或销售的设备 -->
+	<select id="selectNotCZAndXS" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select inv.* from inventory inv 
+			left join deviceinout d on inv.serialnum = d.serialnum 
+			<where>
+				<!-- 查询租用机型 -->
+				<if test="zyjx != null and zyjx != ''">
+					and inv.model like '%Z'
+				</if>
+				<!-- 查询销售机型 -->
+				<if test="xsjx != null and xsjx != ''">
+					and inv.model like '%X'
+				</if>
+				<!-- 查询状态 -->
+				<if test="ivs != null and ivs != ''">
+					and d.inventorystatus = #{ivs}
+				</if>
+			</where>
+	</select>
+</mapper>

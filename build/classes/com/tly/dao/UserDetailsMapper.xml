@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 会员 -->
+<mapper namespace="com.tly.dao.IUserDetailsDao">
+	<!-- 新增会员 -->
+	<insert id="insert" parameterType="com.tly.model.UserDetails">
+		insert into userdetails(wxid,name,sex,date,phonenum,city,saldo,permisos,username,jrtime) 
+		values(#{wxid},#{name},#{sex},#{date},#{phonenum},#{city},#{saldo},#{permisos},#{username},#{jrtime})
+	</insert>
+	<!-- 查询全部 -->
+	<select id="selectAll" resultType="com.tly.model.UserDetails">
+		select * from UserDetails
+	</select>
+	<!-- 添加一级上线 -->
+	<update id="updateByOneonwxid" parameterType="com.tly.model.UserDetails">
+		update userdetails set oneonwxid = #{oneonwxid} where id=#{id} 
+	</update>
+	<!-- 添加二级上线 -->
+	<update id="updateByTwoonwxid" parameterType="com.tly.model.UserDetails">
+		update userdetails set twoonwxid = #{twoonwxid} where id=#{id}
+	</update>
+	<!-- 添加一级下线 -->
+	<update id="updateByOneupwxid" parameterType="com.tly.model.UserDetails">
+		update userdetails set oneupwxid = #{oneupwxid} where id=#{id}
+	</update>
+	<!-- 添加二级下线 -->
+	<update id="updateByTwoupwxid" parameterType="com.tly.model.UserDetails">
+		update userdetails set twoupwxid = #{twoupwxid} where id=#{id}
+	</update>
+	<!-- 查看会员一级上线 -->
+	<select id="selectuseron" parameterType="java.lang.Integer" resultType="com.tly.model.UserDetails">
+		select * from userdetails where id in ( select g.onwxid from grade g left join userdetails u on g.id=u.id where u.id=#{id})
+	</select>
+	<!-- 查询会员二级上线 -->
+	<select id="selecttwouseron" parameterType="java.lang.Integer" resultType="com.tly.model.UserDetails">
+		select * from userdetails where id in (
+		select gd.onwxid from grade gd left join userdetails ud on gd.id=ud.id where ud.id =(
+		select id from userdetails where id in ( select g.onwxid from grade g left join userdetails u on g.id=u.id where u.id=#{id})))
+	</select>
+	<!-- 查看会员一级下线 -->
+	<select id="selectuserup" parameterType="java.lang.Integer" resultType="com.tly.model.UserDetails">
+		select * from userdetails where id in (select g.upwxid from grade g left join userdetails u on g.id=u.id where u.id=#{id})
+	</select>
+	<!-- 查询会员二级下线 -->
+	<select id="selecttwouserup" parameterType="java.lang.Integer" resultType="com.tly.model.UserDetails">
+		select * from userdetails where id in(
+		select gd.upwxid from grade gd left join userdetails ud on gd.id=ud.id where ud.id in (
+		select id from userdetails where id in (select g.upwxid from grade g left join userdetails u on g.id=u.id where u.id=#{id})))
+	</select>
+	<!-- 查询微信id -->
+	<select id="selectByWxid" parameterType="java.lang.String" resultType="com.tly.model.UserDetails">
+		select * from userdetails where wxid = #{wxid}
+	</select>
+	<!-- 查询当月没有消费的会员 -->
+	<select id="selectNotXiaofei" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select id from userdetails where wxid  not in( 
+		select wxid from integral where year(date)=#{year} and month(date)=#{month} and xiaofei != 0)
+		 and jrtime not like #{year} and jrtime not like #{mon}
+	</select>
+	<!-- 按id查询 -->
+	<select id="selectOne" parameterType="java.lang.Integer" resultType="com.tly.model.UserDetails">
+		select * from userdetails where id=#{id}
+	</select>
+</mapper>

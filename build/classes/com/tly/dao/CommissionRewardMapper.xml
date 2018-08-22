@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 会员、合伙人提成奖励对应表 -->
+<mapper namespace="com.tly.dao.ICommissionRewardDao">
+	<!-- 查询 -->
+	<select id="select" resultType="com.tly.model.CommissionReward">
+		select * from commissionreward
+	</select>
+	<!-- 按条件查询 -->
+	<select id="selectByC" parameterType="java.util.HashMap" resultType="com.tly.model.CommissionReward">
+		select * from commissionreward where level=#{level} and identity=#{identity}
+	</select>
+</mapper>

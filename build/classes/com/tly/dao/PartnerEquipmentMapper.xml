@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 合伙人设备对应表 -->
+<mapper namespace="com.tly.dao.IPartnerEquipmentDao">
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.tly.model.PartnerEquipment">
+		insert into partnerequipment(pwxid,zcid,zcnum,xsid,xsnum,ystime,money) values(#{pwxid},#{zcid},#{zcnum},#{xsid},#{xsnum},#{ystime},#{money})
+	</insert>
+	<!-- 按微信id查询租用设备信息 -->
+	<select id="selectByZYEquipment" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from inventory inv  left join deviceinout d on inv.serialnum = d.serialnum left join  partnerequipment pe on inv.id = pe.zcid where pe.pwxid = #{pwxid} and d.inventorystatus != '入库'
+	</select>
+	<!-- 按微信id查询销售设备信息 -->
+	<select id="selectByXSEquipment" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from inventory inv  left join deviceinout d on inv.serialnum = d.serialnum left join  partnerequipment pe on inv.id = pe.xsid where pe.pwxid = #{pwxid} and d.inventorystatus != '入库'
+	</select>
+	<!-- 按微信id查询合伙人的消费金额 -->
+	<select id="selectBySumMoney" parameterType="java.lang.String" resultType="java.lang.Double">
+		select sum(money) from partnerequipment where pwxid = #{wxid}
+	</select>
+</mapper>

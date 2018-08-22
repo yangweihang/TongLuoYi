@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 会员使用统计 -->
+<mapper namespace="com.tly.dao.IUseStatisticalDao">
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.tly.model.UseStatistical">
+		insert into usestatistical(serialnum,kjtime,duration,uid) values(#{serialnum},#{kjtime},#{duration},#{uid})
+	</insert>
+	<!-- 按会员id查询 -->
+	<select id="selectByUid" parameterType="java.lang.Integer" resultType="com.tly.model.UseStatistical">
+		select * from usestatistical where uid=#{uid}
+	</select>
+	<!-- 查询使用次数 -->
+	<select id="selectByCishu" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(*) from usestatistical where uid = #{uid}
+	</select>
+	<!-- 查询使用时长 -->
+	<select id="selectByduration" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select sum(duration) from usestatistical where uid = #{uid}
+	</select>
+</mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+     xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+	 http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+	
+	<import resource="applicationContext.xml"/>
+	
+	<!-- 设备出入库明细 -->
+	<bean id="ddao" class="com.tly.dao.impl.DeviceinoutDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 库存明细 -->
+	<bean id="iidao" class="com.tly.dao.impl.InventoryDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 会员 -->
+	<bean id="iudao" class="com.tly.dao.impl.UserDetailsDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 积分消费 -->
+	<bean id="itdao" class="com.tly.dao.impl.IntegralDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 会员级别 -->
+	<bean id="igdao" class="com.tly.dao.impl.GradeDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 会员使用明细 -->
+	<bean id="iusdao" class="com.tly.dao.impl.UseStatisticalDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 会员级别对应 -->
+	<bean id="imldao" class="com.tly.dao.impl.MembershipLevelDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 合伙人 -->
+	<bean id="ipdao" class="com.tly.dao.impl.PartnerDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 管理员 -->
+	<bean id="iadao" class="com.tly.dao.impl.AdministratorDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 合伙人设备对应 -->
+	<bean id="ipedao" class="com.tly.dao.impl.PartnerEquipmentDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 合伙人级别对应表 -->
+	<bean id="ipldao" class="com.tly.dao.impl.PartnerLevelDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 合伙人上下级对应表 -->
+	<bean id="ipgdao" class="com.tly.dao.impl.PartnerGradeDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+   
+   <!-- 会员、合伙人提成奖励对应表 -->
+   <bean id="icdao" class="com.tly.dao.impl.CommissionRewardDao">
+   		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+   </bean>
+   
+   <!-- 上级提成对应表 -->
+   <bean id="icmdao" class="com.tly.dao.impl.CommissionDao">
+   		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+   </bean>
+   
+   <!-- 钱包明细 -->
+   <bean id="iwddao" class="com.tly.dao.impl.WalletDetailsDao">
+   		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+   </bean>
+   
+   <!-- 故障设备维修明细 -->
+  <bean id="imdao" class="com.tly.dao.impl.MaintainDao">
+   		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+   </bean>
+</beans>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 积分明细 -->
+<mapper namespace="com.tly.dao.IIntegralDao">
+	<!-- 增加 -->
+	<insert id="insert" parameterType="com.tly.model.Integral">
+		insert into integral(wxid,date,xiaofei,xingping,liuyan) value(#{wxid},#{date},#{xiaofei},#{xingping},#{liuyan})
+	</insert>
+	<!-- 按微信id查询一个 -->
+	<select id="selectOne" parameterType="java.lang.String" resultType="com.tly.model.Integral">
+		select * from integral where wxid=#{wxid}
+	</select>
+	<!-- 修改消费 -->
+	<update id="updatexiaofei" parameterType="com.tly.model.Integral">
+		update integral set xiaofei=#{xiaofei} where id=#{id}
+	</update>
+	<!-- 修改星评 -->
+	<update id="updatexingping" parameterType="com.tly.model.Integral">
+		update integral set xingping=#{xingping} where id=#{id}
+	</update>
+	<!-- 修改留言 -->
+	<update id="updateliuyan" parameterType="com.tly.model.Integral">
+		update integral set liuyan=#{liuyan} where id=#{id}
+	</update>
+	<!-- 查询积分 -->
+	<select id="selectByWxid" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select sum(i.xiaofei+i.xingping+i.liuyan) from integral i where wxid = #{wxid}
+	</select>
+</mapper>

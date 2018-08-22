@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tly.dao.IMaintainDao"> 
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.tly.model.Maintain">
+		insert into maintain(dname,address,pname,pwxid,lname,phonenum,gdescribe,starttime) values(#{dname},#{address},#{pname},#{pwxid},#{lname},#{phonenum},#{gdescribe},#{starttime})
+	</insert>
+	<!-- 查询 -->
+	<select id="select" parameterType="java.lang.String" resultType="com.tly.model.Maintain">
+		select * from maintain where pwxid=#{wxid}
+	</select>
+	<!-- 修改 -->
+	<update id="update" parameterType="com.tly.model.Maintain">
+		update maintain set wxid=#{wxid},judge=#{judge},record=#{record},result=#{result},endtime=#{endtime} where pwxid=#{pwxid}
+	</update>
+</mapper>

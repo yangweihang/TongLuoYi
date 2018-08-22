@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tly.dao.IGradeDao">
+	<!-- 增加上级id -->
+	<insert id="insertOnId" parameterType="com.tly.model.Grade">
+		insert into grade(id,onwxid) values(#{id},#{onwxid})
+	</insert>
+	<!-- 增加下线id -->
+	<insert id="insertUpId" parameterType="com.tly.model.Grade">
+		insert into grade(id,upwxid) values(#{id},#{upwxid})
+	</insert>
+	<!-- 查询下线的人数 -->
+	<select id="selectByUp" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(upwxid) from grade where id in (select id from userdetails where id=#{id}) and upwxid is not null
+	</select>
+	<!-- 删除没有消费的下级 -->
+	<delete id="deleteNotXiaofei">
+		delete from grade where upwxid in
+		<foreach item="in" collection="array" open="(" close=")" separator=",">
+		 	#{in}
+		</foreach>
+	</delete>
+</mapper>

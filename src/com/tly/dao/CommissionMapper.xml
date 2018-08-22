@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 上级提成对应表 -->
+<mapper namespace="com.tly.dao.ICommissionDao">
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.tly.model.Commission">
+		insert into commission(wxid,onewxid,twowxid,xfone,xftwo,zyone,zytwo,gmone,gmtwo,time) values(#{wxid},#{onewxid},#{twowxid},#{xfone},#{xftwo},#{zyone},#{zytwo},#{gmone},#{gmtwo},#{time})
+	</insert>
+	<!-- 查询租用一级 -->
+	<select id="selectZyOne" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select sum(zyone) from commission where onewxid=#{wxid} and DATE_SUB(CURDATE(), INTERVAL 30 DAY) <![CDATA[<=]]> date(time)
+	</select>
+	<!-- 查询租用二级 -->
+	<select id="selectZyTwo" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select sum(zytwo) from commission where twowxid=#{wxid} and DATE_SUB(CURDATE(), INTERVAL 30 DAY) <![CDATA[<=]]> date(time)
+	</select>
+	<!-- 查询消费一级 -->
+	<select id="selectXfOne" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select sum(xfone) from commission where onewxid=#{wxid} and DATE_SUB(CURDATE(), INTERVAL 30 DAY) <![CDATA[<=]]> date(time)
+	</select>
+	<!-- 查询消费二级 -->
+	<select id="selectXfTwo" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select sum(xftwo) from commission where twowxid=#{wxid} and DATE_SUB(CURDATE(), INTERVAL 30 DAY) <![CDATA[<=]]> date(time)
+	</select>
+	<!-- 查询购买一级 -->
+	<select id="selectGmOne" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select sum(gmone) from commission where onewxid=#{wxid} and DATE_SUB(CURDATE(), INTERVAL 30 DAY) <![CDATA[<=]]> date(time)
+	</select>
+	<!-- 查询购买二级 -->
+	<select id="selectGmTwo" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select sum(gmtwo) from commission where twowxid=#{wxid} and DATE_SUB(CURDATE(), INTERVAL 30 DAY) <![CDATA[<=]]> date(time)
+	</select>
+	<!-- 查询总收益 -->
+	<select id="selectsumsy" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select sum(zyone+zytwo+xfone+xftwo+gmone+gmtwo) from commission where onewxid=#{wxid} or twowxid=#{wxid}
+	</select>
+	<!-- 按条件查询 -->
+	<select id="selecttj" parameterType="java.util.HashMap" resultType="com.tly.model.Commission">
+		select * from commission where
+				onewxid = #{wxid} or twowxid = #{wxid}
+	</select>
+</mapper>

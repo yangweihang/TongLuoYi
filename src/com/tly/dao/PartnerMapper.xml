@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 合伙人 -->
+<mapper namespace="com.tly.dao.IPartnerDao">
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.tly.model.Partner">
+		insert into partner(wxid,username,name,sex,date,phonenum,city,manner,level,balance,aid,uid) 
+		values(#{wxid},#{username},#{name},#{sex},#{date},#{phonenum},#{city},#{manner},#{level},#{balance},#{aid},#{uid})
+	</insert>
+	<!-- 查询合伙人 -->
+	<select id="selectpartner" resultType="java.util.HashMap">
+		select p.*,a.name as aname from partner p left join partnerequipment pe on p.wxid = pe.pwxid left join administrator a on p.aid = a.id
+	</select>
+	<!-- 查询一级上线 -->
+	<select id="selectOneOn" parameterType="java.lang.Integer" resultType="com.tly.model.Partner">
+		select * from partner where id in( select onid from partnergrade where id=#{id})
+	</select>
+	<!-- 查询二级上线 -->
+	<select id="selectTwoOn" parameterType="java.lang.Integer" resultType="com.tly.model.Partner">
+		 select * from partner where id in(select onid from partnergrade where id in (select onid from partnergrade where id=#{id}))
+	</select>
+	<!-- 查询一级下线 -->
+	<select id="selectOneUp" parameterType="java.lang.Integer" resultType="com.tly.model.Partner">
+		 select * from partner where id in (select upid from partnergrade where id = #{id})
+	</select>
+	<!-- 查询二级下线 -->
+	<select id="selectTwoUp" parameterType="java.lang.Integer" resultType="com.tly.model.Partner">
+		select * from partner where id in (select upid from partnergrade where id in (select upid from partnergrade where id = #{id}))
+	</select>
+	<!-- 按微信id查询 -->
+	<select id="selectWxid" parameterType="java.lang.String" resultType="com.tly.model.Partner">
+		select * from partner where wxid=#{wxid}
+	</select>
+	<!-- 修改余额 -->
+	<update id="updatebalance" parameterType="com.tly.model.Partner">
+		update partner set balance=#{balance} where id=#{id}
+	</update>
+	<!-- 查询余额 -->
+	<select id="selectbalance" parameterType="java.lang.Integer" resultType="com.tly.model.Partner">
+		select * from partner where id=#{id}
+	</select>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 合伙人级别对应表 -->
+<mapper namespace="com.tly.dao.IPartnerLevelDao">
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.tly.model.PartnerLevel">
+		insert into partnerlevel(wxid,level) values(#{wxid},#{level})
+	</insert>
+	<!-- 修改合伙人级别 -->
+	<update id="update" parameterType="com.tly.model.PartnerLevel">
+		update partnerlevel set level=#{level} where wxid=#{wxid}
+	</update>
+</mapper>

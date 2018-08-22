@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="deviceinout" type="com.tly.model.Deviceinout"/>
+		<typeAlias alias="inventory" type="com.tly.model.Inventory"/>
+		<typeAlias alias="userdetails" type="com.tly.model.UserDetails"/>
+		<typeAlias alias="integral" type="com.tly.model.Integral"/>
+		<typeAlias alias="grade" type="com.tly.model.Grade"/>
+		<typeAlias alias="usestatistical" type="com.tly.model.UseStatistical"/>
+		<typeAlias alias="membershiplevel" type="com.tly.model.MembershipLevel"/>
+		<typeAlias alias="partner" type="com.tly.model.Partner"/>
+		<typeAlias alias="administrator" type="com.tly.model.Administrator"/>
+		<typeAlias alias="partnerequipment" type="com.tly.model.PartnerEquipment"/>
+		<typeAlias alias="partnerlevel" type="com.tly.model.PartnerLevel"/>
+		<typeAlias alias="partnergrade" type="com.tly.model.PartnerGrade"/>
+		<typeAlias alias="commissionreward" type="com.tly.model.CommissionReward"/>
+		<typeAlias alias="commission" type="com.tly.model.Commission"/>
+		<typeAlias alias="walletdetails" type="com.tly.model.WalletDetails"/>
+		<typeAlias alias="maintain" type="com.tly.model.Maintain"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/tly/dao/DeviceinoutMapper.xml"/>
+		<mapper resource="com/tly/dao/InventoryMapper.xml"/>
+		<mapper resource="com/tly/dao/UserDetailsMapper.xml"/>
+		<mapper resource="com/tly/dao/IntegralMapper.xml"/>
+		<mapper resource="com/tly/dao/GradeMapper.xml"/>
+		<mapper resource="com/tly/dao/UseStatisticalMapper.xml"/>
+		<mapper resource="com/tly/dao/MembershipLevelMapper.xml"/>
+		<mapper resource="com/tly/dao/PartnerMapper.xml"/>
+		<mapper resource="com/tly/dao/AdministratorMapper.xml"/>
+		<mapper resource="com/tly/dao/PartnerEquipmentMapper.xml"/>
+		<mapper resource="com/tly/dao/PartnerLevelMapper.xml"/>
+		<mapper resource="com/tly/dao/PartnerGradeMapper.xml"/>
+		<mapper resource="com/tly/dao/CommissionRewardMapper.xml"/>
+		<mapper resource="com/tly/dao/CommissionMapper.xml"/>
+		<mapper resource="com/tly/dao/WalletDetailsMapper.xml"/>
+		<mapper resource="com/tly/dao/MaintainMapper.xml"/>
+	</mappers>
+</configuration>

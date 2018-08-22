@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+     xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+	 http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+	
+	<import resource="applicationContext_dao.xml"/>
+	
+	<!-- 出入库明细 -->
+	<bean id="ids" class="com.tly.service.impl.DeviceinoutService">
+		<property name="ddao" ref="ddao"></property>
+	</bean>
+	
+	<!-- 库存明细 -->
+	<bean id="iis" class="com.tly.service.impl.InventoryService">
+		<property name="iidao" ref="iidao"></property>
+	</bean>
+	
+	<!-- 会员 -->
+	<bean id="ius" class="com.tly.service.impl.UserDetailsService">
+		<property name="iudao" ref="iudao"></property>
+	</bean>
+	
+	<!-- 积分明细 -->
+	<bean id="its" class="com.tly.service.impl.IntegralService">
+		<property name="itdao" ref="itdao"></property>
+	</bean>
+	
+	<!-- 会员级别 -->
+	<bean id="igs" class="com.tly.service.impl.GradeService">
+		<property name="igdao" ref="igdao"></property>
+	</bean>
+	
+	<!-- 会员使用明细 -->
+	<bean id="iuss" class="com.tly.service.impl.UseStatisticalService">
+		<property name="iusdao" ref="iusdao"></property>
+	</bean>
+	
+	<!-- 会员级别对应 -->
+	<bean id="imls" class="com.tly.service.impl.MembershipLevelService">
+		<property name="imldao" ref="imldao"></property>
+	</bean>
+	
+	<!-- 合伙人 -->
+	<bean id="ips" class="com.tly.service.impl.PartnerService">
+		<property name="ipdao" ref="ipdao"></property>
+	</bean>
+	
+	<!-- 管理员 -->
+	<bean id="ias" class="com.tly.service.impl.AdministratorService">
+		<property name="iadao" ref="iadao"></property>
+	</bean>
+   
+   <!-- 合伙人设备对应表 -->
+   <bean id="ipes" class="com.tly.service.impl.PartnerEquipmentService">
+   		<property name="ipedao" ref="ipedao"></property>
+   </bean>
+   
+   <!-- 合伙人级别对应表 -->
+   <bean id="ipls" class="com.tly.service.impl.PartnerLevelService">
+   		<property name="ipldao" ref="ipldao"></property>
+   </bean>
+   
+   <!-- 合伙人上下级对应表 -->
+   <bean id="ipgs" class="com.tly.service.impl.PartnerGradeService">
+   		<property name="ipgdao" ref="ipgdao"></property>
+   </bean>
+   
+   <!-- 会员、合伙人提成奖励对应表 -->
+   <bean id="ics" class="com.tly.service.impl.CommissionRewardService">
+   		<property name="icdao" ref="icdao"></property>
+   </bean>
+   
+   <!-- 上级提成对应表 -->
+   <bean id="icms" class="com.tly.service.impl.CommissionService">
+   		<property name="icmdao" ref="icmdao"></property>
+   </bean>
+   
+   <!-- 钱包明细 -->
+   <bean id="iwds" class="com.tly.service.impl.WalletDetailsService">
+   		<property name="iwddao" ref="iwddao"></property>
+   </bean>
+   
+   <!-- 故障设备维修明细 -->
+   <bean id="ims" class="com.tly.service.impl.MaintainService">
+   		<property name="imdao" ref="imdao"></property>
+   </bean>
+</beans>

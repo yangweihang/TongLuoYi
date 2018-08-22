@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 出入库明细表 -->
+<mapper namespace="com.tly.dao.IDeviceinoutDao">
+
+	<!-- 增加 -->
+	<insert id="insert" parameterType="com.tly.model.Deviceinout">
+		insert into deviceinout(serialnum,inventorystatus,intime) values(#{serialnum},#{inventorystatus},#{intime})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update" parameterType="com.tly.model.Deviceinout">
+		update deviceinout set inventorystatus=#{inventorystatus},outtime=#{outtime},manner=#{manner},price=#{price},devicestatus=#{devicestatus},note=#{note} where id=#{id}
+	</update>
+	
+	<!-- 分页查询 -->
+	<select id="selectByPage" parameterType="java.util.HashMap" resultType="com.tly.model.Deviceinout">
+		select * from Deviceinout
+		limit #{pageNum},#{pageSize}
+	</select>
+	
+	<!-- 总数 -->
+	<select id="selectByTotal" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select count(*) from deviceinout
+	</select>
+	
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from deviceinout where id in
+		<foreach item="arr" collection="array" 
+		 open="(" close=")" separator=",">
+		 #{arr}
+		</foreach>
+	</delete>
+	
+	<!-- 按id查询 -->
+	<select id="selectOne" parameterType="java.lang.Integer" resultType="com.tly.model.Deviceinout">
+		select * from deviceinout where id=#{id}
+	</select>
+	
+	<!-- 按设备编号查询 -->
+	<select id="selectBySerialnum" parameterType="java.lang.String" resultType="com.tly.model.Deviceinout">
+		select * from deviceinout where serialnum=#{serialnum}
+	</select>
+	
+	<!-- 新增入库 -->
+	<insert id="insertin" parameterType="com.tly.model.Deviceinout">
+		insert into deviceinout(serialnum,inventorystatus,intime) values(#{serialnum},#{inventorystatus},#{intime})
+	</insert>
+	
+	<!-- 新增出库 -->
+	<insert id="insertout" parameterType="com.tly.model.Deviceinout">
+		insert into deviceinout(serialnum,inventorystatus,pwxid,manner,outtime) values(#{serialnum},#{inventorystatus},#{pwxid},#{manner},#{outtime})
+	</insert>
+	
+	<!-- 新增报废 -->
+	<insert id="insertscrap" parameterType="com.tly.model.Deviceinout">
+		insert into deviceinout(serialnum,inventorystatus) values(#{serialnum},#{inventorystatus})
+	</insert>
+	
+	<!-- 查询重复的最大的一个 -->
+	<select id="selectmax" parameterType="java.util.HashMap" resultType="com.tly.model.Deviceinout">
+		select * from deviceinout where id=( select max(id) from deviceinout where serialnum = #{serialnum})
+		<if test="inventorystatus != null and inventorystatus != ''">
+			 and inventorystatus = #{inventorystatus}
+		</if>
+	</select>
+</mapper>

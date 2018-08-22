@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 合伙人上下级对应表 -->
+<mapper namespace="com.tly.dao.IPartnerGradeDao">
+	<!-- 新增上级 -->
+	<insert id="inserton" parameterType="com.tly.model.PartnerGrade">
+		insert into partnergrade(id,onid) values(#{id},#{onid})
+	</insert>
+	<!-- 新增下级 -->
+	<insert id="insertup" parameterType="com.tly.model.PartnerGrade">
+		insert into partnergrade(id,upid) values(#{id},#{upid})
+	</insert>
+</mapper>

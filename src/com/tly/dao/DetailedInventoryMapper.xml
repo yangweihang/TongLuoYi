@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tly.dao.IDetailedInventoryDao">
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.tly.model.DetailedInventory">
+		insert into detailedinventory(model,serialnum,ewm) values(model,serialnum,ewm)
+	</insert>
+	<!-- 查询一个对象 -->
+	<select id="selectByTJ" parameterType="java.util.HashMap" resultType="com.tly.model.DetailedInventory">
+		select * from detailedinventory
+		<where>
+			<!-- 查询设备编号 -->
+			<if test="mod != null and mod != ''">
+				and serialnum = #{mod}
+			</if>
+		</where>
+	</select>
+</mapper>
